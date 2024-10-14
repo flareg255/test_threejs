@@ -14,6 +14,8 @@ const aspect = {
     height:window.innerHeight
 }
 const camera = new THREE.PerspectiveCamera(75, aspect.width / aspect.height);
+camera.position.x = 1;
+camera.position.y = 1;
 camera.position.z = 3;
 console.log(camera.position)
 scene.add(camera);
