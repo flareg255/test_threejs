@@ -21,4 +21,17 @@ camera.position.z = 3;
 const canvas = document.querySelector('.draw');
 const rederer = new THREE.WebGLRenderer({ canvas });
 rederer.setSize(aspect.width, aspect.height);
-rederer.render(scene, camera);
+
+const clock = new THREE.Clock();
+
+const animate = () => {
+    const elapsedTime = clock.getElapsedTime();
+    console.log(elapsedTime);
+    mesh.rotation.y += elapsedTime * Math.PI * 2;
+
+    rederer.render(scene, camera);
+
+    window.requestAnimationFrame(animate);
+};
+
+animate();
