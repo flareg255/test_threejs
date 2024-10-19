@@ -16,8 +16,13 @@ const mesh2 = new THREE.Mesh(geometry2, material2);
 mesh2.position.y = 2;
 
 group.add(mesh, mesh2);
+group.position.x = 3;
 
 scene.add(group);
+
+
+const axesHelper = new THREE.AxesHelper(4);
+scene.add(axesHelper);
 
 const aspect = {
     width:window.innerWidth,
