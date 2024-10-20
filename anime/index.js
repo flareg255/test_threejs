@@ -3,8 +3,10 @@ console.log(THREE);
 
 const scene = new THREE.Scene();
 
+const texture = new THREE.TextureLoader().load(`./img/553.png`);
 const geometery = new THREE.BoxGeometry(1,1,1);
-const material = new THREE.MeshBasicMaterial({color:'aqua'});
+// const material = new THREE.MeshBasicMaterial({color:'aqua'});
+const material = new THREE.MeshBasicMaterial({map: texture});
 const mesh = new THREE.Mesh(geometery, material);
 
 scene.add(mesh);

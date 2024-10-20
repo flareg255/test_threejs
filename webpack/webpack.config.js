@@ -3,15 +3,15 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin    = require('html-webpack-plugin');
-// const CopyWebpackPlugin   = require('copy-webpack-plugin');
-// const ImageminPlugin = require('imagemin-webpack-plugin').default;
-// const ImageminMozjpeg = require('imagemin-mozjpeg');
+const CopyWebpackPlugin   = require('copy-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ImageminMozjpeg = require('imagemin-mozjpeg');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
+const TerserPlugin = require("terser-webpack-plugin");
 
 
 module.exports = {
-    mode: "production",
     devtool: 'source-map',
     entry: `./src/js/index.js`,
     stats: {
@@ -24,10 +24,12 @@ module.exports = {
     },
 
     devServer: {
-        static: "dist",
+        static: {
+            directory: path.join(__dirname, 'src'),
+        },
+        port: 11111,
         open: true,
         hot: true,
-        port: 11111
     },
 
     module: {
@@ -52,6 +54,7 @@ module.exports = {
     },
     optimization: {
         minimizer: [
+            new TerserPlugin(),
             new CssMinimizerPlugin(),
         ],
     },
@@ -66,32 +69,32 @@ module.exports = {
             filename: `${__dirname}/dist/index.html`,
             inject: 'body'
         }),
-        // new CopyWebpackPlugin({
-        //     patterns: [
-        //         {
-        //             from: `${__dirname}/src/img/`,
-        //             to: `${__dirname}/dist/img/`,
-        //         }
-        //     ]
-        // }),
-        // new ImageminPlugin({
-        //     test: /\.(jpe?g|png|gif|svg)$/i,
-        //     pngquant: {
-        //         quality: '70-85'
-        //     },
-        //     gifsicle: {
-        //         interlaced: false,
-        //         optimizationLevel: 9,
-        //         colors: 256
-        //     },
-        //     svgo: {},
-        //     plugins: [
-        //         ImageminMozjpeg({
-        //             quality: 50,
-        //             progressive: true
-        //         })
-        //     ]
-        // }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: `${__dirname}/src/img/`,
+                    to: `${__dirname}/dist/img/`,
+                }
+            ]
+        }),
+        new ImageminPlugin({
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            pngquant: {
+                quality: '70-85'
+            },
+            gifsicle: {
+                interlaced: false,
+                optimizationLevel: 9,
+                colors: 256
+            },
+            svgo: {},
+            plugins: [
+                ImageminMozjpeg({
+                    quality: 50,
+                    progressive: true
+                })
+            ]
+        }),
         new CleanWebpackPlugin()
     ],
 
