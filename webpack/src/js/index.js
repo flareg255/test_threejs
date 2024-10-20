@@ -18,7 +18,7 @@ loadingManager.onError = () => {
 };
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const texture = textureLoader.load('img/map1.png');
+const texture = textureLoader.load('img/map2.png');
 const scene = new THREE.Scene();
 
 
