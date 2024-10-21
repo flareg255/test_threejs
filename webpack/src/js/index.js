@@ -19,7 +19,24 @@ loadingManager.onError = () => {
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const texture = textureLoader.load('img/map1.png');
+
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+const envTexture = cubeTextureLoader.load([
+    'img/umi3.png',
+    'img/umi3.png',
+    'img/umi3.png',
+    'img/umi3.png',
+    'img/umi3.png',
+    'img/umi3.png'
+]);
+
+// envTexture.generateMipmaps = true;
+// envTexture.minFilter = THREE.NearestMipmapLinearFilter;
+
 const scene = new THREE.Scene();
+scene.background = envTexture;
+
+console.log(scene);
 
 
 
@@ -63,7 +80,7 @@ const clock = new THREE.Clock();
 rederer.render(scene, camera);
 const animate = () => {
     const elapsedTime = clock.getElapsedTime();
-    console.log(elapsedTime);
+    // console.log(elapsedTime);
     mesh.rotation.y += elapsedTime * Math.PI * 2 / 10000;
 
     rederer.render(scene, camera);
