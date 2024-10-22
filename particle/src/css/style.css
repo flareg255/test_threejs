@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* html{
+    background-image: url('../img/553.png');
+} */
+
+.draw{
+    position: fixed;
+    top: 0;
+    left: 0;
+}
